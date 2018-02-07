@@ -1,8 +1,8 @@
-def testif(Map params = [:]) {
+def call(Map params = [:]) {
     Boolean condition = params.condition
     String script = params.script
     String imageName = params.container
-    String path = params.get('junit', "")
+    String junitPath = params.get('junit', '')
 
     if (!condition) {
         echo "Skipped"
@@ -11,14 +11,14 @@ def testif(Map params = [:]) {
     }
 
     pod(label: "test", containers: [
-        containerTemplate(name: "main", image: imageName, resourceRequestCpu: '500m', resourceRequestMemory: '1000Mi')
+        containerTemplate(name: "main", image: imageName, resourceRequestCpu: '900m', resourceRequestMemory: '3500Mi')
     ]) {
         container("main") {
             try {
-                sh script
+                sh script.replace("%workspace%", env.WORKSPACE)
             } finally {
-                if (junit != "") {
-                    junit path
+                if (junitPath != "") {
+                    junit junitPath
                 }
             }
         }
