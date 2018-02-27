@@ -11,7 +11,7 @@ def call(Map params = [:]) {
     }
 
     pod(label: "test", containers: [
-        containerTemplate(name: "main", image: imageName, resourceRequestCpu: '900m', resourceRequestMemory: '3500Mi')
+        containerTemplate(name: "main", image: imageName, alwaysPullImage: true, resourceRequestCpu: '900m', resourceRequestMemory: '3500Mi')
     ]) {
         container("main") {
             try {

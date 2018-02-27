@@ -19,7 +19,7 @@ def call(Map params = [:]) {
     }
 
     pod(label: "pubsub", containers: [
-        containerTemplate(name: "fetcher", image: imageName, resourceRequestCpu: '500m', resourceRequestMemory: '3500Mi'),
+        containerTemplate(name: "fetcher", image: imageName, alwaysPullImage: true, resourceRequestCpu: '500m', resourceRequestMemory: '3500Mi'),
         containerTemplate(name: "gcloud", ttyEnabled: true, command: 'cat', image: "eu.gcr.io/akeneo-ci/gcloud:1.1", alwaysPullImage: true, resourceRequestCpu: '100m', resourceRequestMemory: '200Mi')
     ]) {
         def messages = []
@@ -51,6 +51,7 @@ def call(Map params = [:]) {
                                 [
                                     'name': 'main',
                                     'image': imageName,
+                                    'imagePullPolicy': 'Always',
                                     'resources': ['requests': ['cpu': "900m", 'memory': "3500Mi"]],
                                     'env' : [
                                         ['name': 'BEHAT_SCREENSHOT_PATH', 'value': '/tmp/pod']
@@ -71,7 +72,7 @@ def call(Map params = [:]) {
                                 ],
                                 [
                                     'name': 'pubsub',
-                                    'image': 'eu.gcr.io/akeneo-ci/gcloud:1.0',
+                                    'image': 'eu.gcr.io/akeneo-ci/gcloud:1.1',
                                     'imagePullPolicy': 'Always',
                                     'resources': ['requests': ['cpu': "100m", 'memory': "100Mi"]],
                                     'command': ["/bin/sh", "-c"],
