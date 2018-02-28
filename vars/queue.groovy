@@ -57,7 +57,7 @@ def call(Map params = [:]) {
                                         ['name': 'BEHAT_SCREENSHOT_PATH', 'value': '/tmp/pod']
                                     ],
                                     'command': ["/bin/sh", "-c"],
-                                    'args': ["/var/www/pim/bin/docker/start-servers; while true; do if [ -f \"/tmp/pod/main-terminated\" ]; then exit 0; fi; sleep 1; done"],
+                                    'args': ["/var/www/pim/.ci/bin/start-servers; while true; do if [ -f \"/tmp/pod/main-terminated\" ]; then exit 0; fi; sleep 1; done"],
                                     'readinessProbe': [
                                         'timeoutSeconds': 5,
                                         'initialDelaySeconds': 2,
