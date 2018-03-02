@@ -52,7 +52,7 @@ def call(Map params = [:]) {
                                     'name': 'main',
                                     'image': imageName,
                                     'imagePullPolicy': 'Always',
-                                    'resources': ['requests': ['cpu': "900m", 'memory': "3500Mi"]],
+                                    'resources': ['requests': ['cpu': "900m", 'memory': "3800Mi"]],
                                     'env' : [
                                         ['name': 'BEHAT_SCREENSHOT_PATH', 'value': '/tmp/pod']
                                     ],
@@ -74,7 +74,7 @@ def call(Map params = [:]) {
                                     'name': 'pubsub',
                                     'image': 'eu.gcr.io/akeneo-ci/gcloud:1.1',
                                     'imagePullPolicy': 'Always',
-                                    'resources': ['requests': ['cpu': "100m", 'memory': "100Mi"]],
+                                    'resources': ['requests': ['cpu': "100m", 'memory': "200Mi"]],
                                     'command': ["/bin/sh", "-c"],
                                     'args': [ "trap \"touch /tmp/pod/main-terminated\" EXIT; gcloud.phar pubsub:message:consume ${NODE_NAME}-subscription ${NODE_NAME}-results"],
                                     'env': [
